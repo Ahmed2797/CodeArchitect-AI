@@ -1,0 +1,9 @@
+crewai==1.10.1 
+faiss-cpu 
+gitpython==3.1.46
+langchain==1.0.1
+langchain-text-splitters
+openai==2.24.0
+
+ -e .
+
