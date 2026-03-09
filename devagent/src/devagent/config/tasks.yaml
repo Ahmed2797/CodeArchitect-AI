@@ -1,0 +1,58 @@
+read_code_task:
+  description: >
+    Analyze the Travel Planner repository.
+
+    Tasks:
+    1. Identify the main script.
+    2. Identify helper modules.
+    3. Explain how user preferences are handled.
+
+    Then answer the user's question about the repository.
+
+    Question:
+    {user_question}
+
+    Use the search_codebase tool to retrieve relevant code from the vector database.
+  expected_output: >
+    A detailed map of the file structure and a summary of functional logic.
+  agent: code_reader
+
+
+explain_arch_task:
+  description: >
+    Review the code structure and explain the architecture
+    (e.g., RAG-based, Sequential, or Hierarchical).
+  expected_output: >
+    A technical architecture report including data flow diagrams
+    in Mermaid.js format.
+  agent: architect
+  context:
+    - read_code_task
+
+
+find_bugs_task:
+  description: >
+    Scan the logic for bugs, specifically looking at how the travel APIs
+    are called and how error handling is implemented.
+  expected_output: >
+    A list of critical bugs, warnings, and suggested refactors.
+  agent: bug_finder
+  context:
+    - read_code_task
+
+
+generate_docs_task:
+  description: >
+    Create a comprehensive README.md for the repository.
+
+    The README must include:
+    - Getting Started
+    - Architecture
+    - Known Issues
+  expected_output: >
+    A professional Markdown README file ready for GitHub.
+  agent: doc_writer
+  context:
+    - read_code_task
+    - explain_arch_task
+    - find_bugs_task
